@@ -1,0 +1,16 @@
+services:
+  - docker
+
+# Build
+script:
+  - docker build -t udagram-frontend .
+# Tagging
+  - docker tag udagram-frontend tatthang0501/udagram-frontend:v1
+# Do similar for other three images
+
+# Push
+# Assuming DOCKER_PASSWORD and DOCKER_USERNAME are set in the Travis repository settings
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push tatthang0501/udagram-frontend:v1
+# Do similar for other three images
